@@ -72,7 +72,20 @@ hook evidence python3 ../report.py --dry-run
 
 ## Install
 
-Requires macOS 26 or newer. Until a signed release is published, build it from source with Xcode 26 or newer and XcodeGen (`brew install xcodegen`):
+Requires macOS 26 or newer, on Apple silicon or Intel. Download `sView-<version>.zip` from the [latest release](https://github.com/uSuite/sview/releases/latest), open it, and move `sView.app` to Applications. For the `sview` command, link the launcher inside the app: `mkdir -p ~/.local/bin && ln -sf /Applications/sView.app/Contents/Resources/sview ~/.local/bin/sview`.
+
+### The first open: sView Not Opened
+
+The release is signed ad hoc, not with a paid Apple Developer ID, so Apple has not notarised it. The first time you open a downloaded copy, macOS stops it with "Apple could not verify sView is free of malware" (the dialog quotes the app name). Choose Done, then allow it once, either way:
+
+- System Settings > Privacy & Security, scroll down to Security, and next to the line saying sView was blocked to protect your Mac, choose Open Anyway, confirm with your password or Touch ID, then Open. The button shows for about an hour after the blocked attempt.
+- Or in Terminal, remove the download flag macOS checks: `xattr -dr com.apple.quarantine /Applications/sView.app`
+
+From then on that copy opens like any app; each new version you download asks once more. Control-click > Open no longer skips the check on recent macOS. Only downloaded copies are checked: a copy you build yourself never carries the download flag, so it opens at once. If you would rather not run a binary you did not build, build it from source as below.
+
+### Build from source
+
+With Xcode 26 or newer and XcodeGen (`brew install xcodegen`):
 
 ```bash
 make app
