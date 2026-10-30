@@ -69,3 +69,7 @@ Why: the s-family is open source. The bundle id is `io.github.usuite.sview`, the
 ## 2026-10-30 The family note moved to scommon
 
 Why: docs/04-branding.md said it lives here until scommon exists. It is now scommon's `brand/README.md`, with the marks of the organization, scommon and sWalk added; this file is a pointer. sView's icon and its layers in `brand/` are unchanged.
+
+## 2026-10-30 Downloads are ad hoc signed zips on GitHub Releases until there is a Developer ID
+
+Why: people should be able to try sView without Xcode, and notarisation needs a paid Apple Developer ID, which the project does not have. `make release` builds the universal app and zip signed ad hoc, and the zip is attached to the GitHub release of the tag with its SHA-256. A downloaded copy carries the quarantine flag, so Gatekeeper blocks its first open; the README says so and gives both ways to allow it (Privacy & Security > Open Anyway, or `xattr -dr com.apple.quarantine`). A local build carries no quarantine flag and is never blocked. Rules out: telling people to turn Gatekeeper off, signing with an Apple Development certificate (it does not pass Gatekeeper either). Revisit with `make notarize` once a Developer ID exists.
