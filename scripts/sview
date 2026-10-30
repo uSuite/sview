@@ -1,0 +1,15 @@
+#!/bin/sh
+# Command-line launcher (SV-505): open files or folders in sView. `sview -`
+# reads one path per line from stdin, for example `ls *.png | sview -`.
+set -eu
+if [ "$#" -eq 0 ]; then
+    exec open -a sView
+fi
+if [ "$1" = "-" ]; then
+    set --
+    while IFS= read -r path; do
+        [ -n "$path" ] && set -- "$@" "$path"
+    done
+    [ "$#" -gt 0 ] || exit 0
+fi
+exec open -a sView "$@"

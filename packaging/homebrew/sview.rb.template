@@ -1,0 +1,16 @@
+cask "sview" do
+  version "@VERSION@"
+  sha256 "@SHA256@"
+
+  url "https://github.com/@REPOSITORY@/releases/download/v#{version}/sView-#{version}.zip"
+  name "sView"
+  desc "Keyboard-first image viewer with vim keys"
+  homepage "https://github.com/@REPOSITORY@"
+
+  depends_on macos: ">= :tahoe"
+
+  app "sView.app"
+  binary "#{appdir}/sView.app/Contents/Resources/sview"
+
+  zap trash: "~/.config/sview"
+end

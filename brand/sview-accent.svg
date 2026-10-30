@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- sView: an open viewfinder, four thin corner brackets around the s. -->
+  <g fill="none" stroke="#ffffff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 278 330 V 256 H 352"/>
+    <path d="M 672 256 H 746 V 330"/>
+    <path d="M 746 694 V 768 H 672"/>
+    <path d="M 352 768 H 278 V 694"/>
+  </g>
+</svg>
