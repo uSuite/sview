@@ -97,6 +97,17 @@ make install
 
 SwiftPM fetches scommon from GitHub on the first build, or uses a `../scommon` checkout beside this one when there is one. `make app` writes `build/sView.app`; `make install` links the `sview` command into `~/.local/bin`. `make release` builds a universal app and zip, and `make notarize` signs and notarises it when a Developer ID is available.
 
+## What it reads and writes
+
+sView reads the images you open and the folders they are in. It has no network code: nothing is collected, sent or uploaded, and it asks for no permissions.
+
+- `~/.config/sview/` (or `$XDG_CONFIG_HOME/sview/`), created on first launch: `config` and `keymap`, plain text you can edit, and `state.json`, the last session, safe to delete.
+- In the folders you open, only when you ask: rename, move to the Trash (with undo), and `:export-marked <file>`, which writes the marked names to that file.
+- Export Config in Settings writes a zip of `config` and `keymap` where you choose in a Save panel; `:export-config` writes it to the path you give, or to the Desktop when you give none, and macOS may ask once for the Desktop.
+- `:run` hooks are shell commands you write in `config`; they run with your permissions in the current folder. sView runs nothing else.
+
+This release is not sandboxed yet, which is why macOS does not ask before sView writes `~/.config/sview/`. The next minor version moves sView into the App Sandbox: it will ask once for each folder you open, and its own files will live in its container, with your current ones moved there on first launch.
+
 ## Development
 
 `make test` runs the core library tests, `make smoke` drives the app through every default key binding and takes snapshots, `make hostile` throws broken and huge files at it, `make idle` checks idle CPU and leaks, and `make bench` appends a line to bench/RESULTS.md. The architecture is in docs/02-tech-stack.md, the backlog in docs/01-backlog.md and decisions in docs/DECISIONS.md. Branches follow git-flow and versions follow semver; the version lives in `VERSION`.
